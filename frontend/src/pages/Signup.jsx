@@ -18,7 +18,7 @@ function Signup() {
   e.preventDefault();
   try {
    
-   const response = await axios.post("http://localhost:5000/user/signup", {name: form.name, email: form.email, password: form.password});
+   const response = await axios.post(`${process.env.REACT_APP_API_URL}/user/signup`, {name: form.name, email: form.email, password: form.password});
    
    
     const { token, user } = response.data;
@@ -29,7 +29,7 @@ function Signup() {
     
     const localCart = JSON.parse(localStorage.getItem("cart")) || [];
     if (localCart.length > 0) {
-      await axios.post("http://localhost:5000/cart", 
+      await axios.post(`${process.env.REACT_APP_API_URL}/cart`, 
         { items: localCart }, 
         { headers: { Authorization: `Bearer ${token}` } }
       );

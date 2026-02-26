@@ -27,7 +27,7 @@ function Cart() {
 
   const fetchPerfumesDetails = async (ids) => {
     try {
-      const requests = ids.map(id => axios.get(`http://localhost:5000/product/${id}`));
+      const requests = ids.map(id => axios.get(`${process.env.REACT_APP_API_URL}/product/${id}`));
       const responses = await Promise.all(requests);
       setPerfumes(responses.map(res => res.data));
     } catch (err) {
@@ -69,7 +69,7 @@ function Cart() {
 
       // 2. Add the Authorization Header!
       await axios.post(
-        `http://localhost:5000/cart`, 
+        `${process.env.REACT_APP_API_URL}/cart`, 
         { items: itemsForBackend }, // user_id is safer to extract on backend from token
         { headers: { Authorization: `Bearer ${token}` } } 
       );

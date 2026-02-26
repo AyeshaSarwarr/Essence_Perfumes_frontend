@@ -13,8 +13,8 @@ function OurProducts({ limit }) {
       setLoading(true); // Reset loading state when limit changes
       try {
         const url = limit 
-          ? `http://localhost:5000/product?limit=${limit}` 
-          : 'http://localhost:5000/product';
+          ? `${process.env.REACT_APP_API_URL}/product?limit=${limit}` 
+          : `${process.env.REACT_APP_API_URL}/product`;
         
         const response = await axios.get(url);
         setPerfumes(response.data);

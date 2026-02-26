@@ -25,7 +25,7 @@ function Checkout() {
       try {
         if (id) {
           // MODE 1: Single Product (Buy Now)
-          const res = await axios.get(`http://localhost:5000/product/${id}`);
+          const res = await axios.get(`${process.env.REACT_APP_API_URL}/product/${id}`);
           const item = {
             perfume_id: res.data.id,
             name: res.data.name,
@@ -44,7 +44,7 @@ function Checkout() {
           }
 
           // Fetch details for all items in cart
-          const requests = storedCart.map(item => axios.get(`http://localhost:5000/product/${item.id}`));
+          const requests = storedCart.map(item => axios.get(`${process.env.REACT_APP_API_URL}/product/${item.id}`));
           const responses = await Promise.all(requests);
           
           const fullItems = responses.map((res, index) => ({
@@ -98,7 +98,7 @@ function Checkout() {
         quantity: item.quantity
       }));
 
-      const response = await axios.post("http://localhost:5000/orders", 
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/orders`, 
         { orderData, items }, 
         { headers: token ? { Authorization: `Bearer ${token}` } : {} }
       );
